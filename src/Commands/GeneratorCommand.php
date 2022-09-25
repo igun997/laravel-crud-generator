@@ -246,7 +246,7 @@ abstract class GeneratorCommand extends Command
     protected function _getViewPath($view,$customPath=false)
     {
         $name = Str::kebab($this->name);
-        if($customPath){
+        if($customPath != "false"){
             return $this->makeDirectory(resource_path("/views/{$customPath}/{$view}.blade.php"));
         }
         
