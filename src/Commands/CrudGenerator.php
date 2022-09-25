@@ -18,7 +18,8 @@ class CrudGenerator extends GeneratorCommand
      */
     protected $signature = 'make:crud
                             {name : Table name}
-                            {--route= : Custom route name}';
+                            {--route= : Custom route name}
+                            {--path=false : Path of views}';
 
     /**
      * The console command description.
@@ -148,13 +149,16 @@ class CrudGenerator extends GeneratorCommand
         ]);
 
         $this->buildLayout();
+        
+        
+        $path = $this->option('path');
 
         foreach (['index', 'create', 'edit', 'form', 'show'] as $view) {
             $viewTemplate = str_replace(
                 array_keys($replace), array_values($replace), $this->getStub("views/{$view}")
             );
 
-            $this->write($this->_getViewPath($view), $viewTemplate);
+            $this->write($this->_getViewPath($view,$path), $viewTemplate);
         }
 
         return $this;
